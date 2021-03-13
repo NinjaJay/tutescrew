@@ -42,7 +42,7 @@ func main() {
 	}
 
 	dg.AddHandler(messageCreate)
-	dg.AddHandler(guildMemberAdd)
+	dg.AddHandler(GuildMemberAdd)
 
 	h = &commands.Handler{Commands: make(map[string]commands.Command)}
 	h.AddCommand("register", &commands.Register{Config: cfg.CAS})
@@ -84,15 +84,15 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	h.Handle(*ctx)
 }
 
-func guildMemberAdd(s *discordgo.Session, g *discordgo.GuildMemberAdd) {
+func (s *Session) GuildMemberAdd(accessToken string, guildID, userID int64, nick string, roles []int64, mute, deaf bool) (err error) {
 	// TODO: Configurable welcome message channel and msg
-	gld, _ := s.Guild(g.GuildID)
+	gld, _ := s.Guild(guildID)
 	rid, _ := commands.GetRoleIDByName("Newcomer", gld)
-	s.GuildMemberRoleAdd(g.GuildID, g.User.ID, rid)
+	s.GuildMemberRoleAdd(guildID, userID, rid)
 
 	for _, ch := range gld.Channels {
 		if ch.Name == "welcome" {
-			s.ChannelMessageSend(ch.ID, "Welcome "+"<@"+g.Member.User.ID+">!\n\n"+
+			s.ChannelMessageSend(ch.ID, "Welcome "+"<@"+userID+">!\n\n"+
 				"If you are a student, please enter `"+cfg.Prefix+"register`"+
 				" to verify your enrollment status.\nIf you are not a currently enrolled"+
 				" student, please message an admin to get tagged.")
