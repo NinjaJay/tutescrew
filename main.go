@@ -44,7 +44,7 @@ func main() {
 	dg.AddHandler(messageCreate)
 
 	h = &commands.Handler{Commands: make(map[string]commands.Command)}
-	h.AddCommand("register", &commands.Register{Config: cfg.CAS})
+	h.AddCommand("verify", &commands.Register{Config: cfg.CAS})
 
 	err = dg.Open()
 	if err != nil {
