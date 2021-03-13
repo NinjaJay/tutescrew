@@ -1,6 +1,5 @@
-Dockerfile*
-docker-compose*
 config.json
 *.db
 vendor
 Dockerfile.dev
+Dockerfile
