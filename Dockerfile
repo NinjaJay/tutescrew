@@ -18,7 +18,7 @@ COPY --from=builder /app ./
 ENV TUTESCREW_TOKEN=your_discord_bot_token
 ENV TUTESCREW_PREFIX=$
 ENV TUTESCREW_CAS_AUTHURL=your_cas_url
-ENV TUTESCREW_CAS_REDIRECTURL=your_redirect_url
+ENV TUTESCREW_CAS_REDIRECTURL=your_redirect_url/auth/cas
 
 RUN apk --no-cache add ca-certificates
 
