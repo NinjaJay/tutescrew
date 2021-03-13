@@ -54,21 +54,12 @@ func handleCAS(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			log.Println(err)
 			return
 		}
-		rid, err := commands.GetRoleIDByName("Student", gld)
+		rid, err := commands.GetRoleIDByName("Verified", gld)
 		if err != nil {
 			log.Println(err)
 			return
 		}
 		session.GuildMemberRoleAdd(g, d, rid)
-
-		// Remove Newcomer role
-		if commands.UserIDHasRoleByGuild("Newcomer", d, gld) {
-			n, err := commands.GetRoleIDByName("Newcomer", gld)
-			if err != nil {
-				log.Println(err)
-			}
-			session.GuildMemberRoleRemove(g, d, n)
-		}
 
 		w.Write([]byte("Success! You may now close this window."))
 	} else {

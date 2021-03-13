@@ -20,9 +20,9 @@ func (r *Register) handle(ctx Context) error {
 	}
 	g, _ := ctx.Sess.State.Guild(ch.GuildID)
 
-	if UserIDHasRoleByGuild("Student", ctx.Msg.Author.ID, g) {
-		ctx.Sess.ChannelMessageSend(ctx.Msg.ChannelID, "You are already a student!")
-		return errors.New("already registered")
+	if UserIDHasRoleByGuild("Verified", ctx.Msg.Author.ID, g) {
+		ctx.Sess.ChannelMessageSend(ctx.Msg.ChannelID, "You are already verified!")
+		return errors.New("already verified")
 	}
 
 	// Build the full login URL
@@ -50,13 +50,13 @@ func (r *Register) handle(ctx Context) error {
 	if err != nil {
 		return err
 	}
-	ctx.Sess.ChannelMessageSend(usrch.ID, "Please go to "+u.String()+" to start the registration process.")
+	ctx.Sess.ChannelMessageSend(usrch.ID, "Please go to "+u.String()+" to start the verification process.")
 
 	return nil
 }
 
 func (r *Register) description() string {
-	return "Allows the user to start the student validation process. Upon success, the user with receive the \"student\" role."
+	return "Allows the user to start the student validation process. Upon success, the user with receive the \"Verified\" role."
 }
 func (r *Register) usage() string { return "" }
 func (r *Register) canDM() bool   { return false }
