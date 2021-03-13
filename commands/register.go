@@ -7,13 +7,13 @@ import (
 	"github.com/albshin/tutescrew/config"
 )
 
-// Register struct class
-type Register struct {
+// Verify struct class
+type Verify struct {
 	Config config.CASConfig
 }
 
-func (r *Register) handle(ctx Context) error {
-	// Check if student is already registered
+func (r *Verify) handle(ctx Context) error {
+	// Check if student is already verified
 	ch, err := ctx.Sess.State.Channel(ctx.Msg.ChannelID)
 	if err != nil {
 		return err
@@ -55,8 +55,8 @@ func (r *Register) handle(ctx Context) error {
 	return nil
 }
 
-func (r *Register) description() string {
+func (r *Verify) description() string {
 	return "Allows the user to start the student validation process. Upon success, the user with receive the \"Verified\" role."
 }
-func (r *Register) usage() string { return "" }
-func (r *Register) canDM() bool   { return false }
+func (r *Verify) usage() string { return "" }
+func (r *Verify) canDM() bool   { return false }
