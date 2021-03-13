@@ -56,7 +56,7 @@ func main() {
 	fmt.Println("Bot is running...")
 
 	r := route.Router(cfg.CAS, dg)
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":8088", r)
 
 	fmt.Println("Web server is running...")
 

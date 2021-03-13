@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
+	"path"
 	"strings"
 	"time"
 
@@ -141,11 +143,9 @@ func getValidationURL(r *http.Request) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	v, err := url.Parse("serviceValidate")
-	if err != nil {
-		return "", err
-	}
-	u = u.ResolveReference(v)
+	pathSections := strings.Split(u.Path, string(os.PathSeparator))
+	pathSections = append(pathSections, "serviceValidate")
+	u.Path = path.Join(pathSections...)
 
 	srv, err := getServiceURL(r)
 	if err != nil {
